@@ -1,6 +1,6 @@
 {
-  "name": "serverless-nextjs-plugin-hash-funcname",
-  "version": "2.4.14",
+  "name": "@andrew-razumovsky/serverless-nextjs-plugin-individual-packaging",
+  "version": "2.5.1",
   "description": "A serverless plugin for nextjs 8 serverless target",
   "main": "index.js",
   "author": "Daniel Conde Marin <danielconde9@gmail.com>",
@@ -17,7 +17,7 @@
     "api gateway"
   ],
   "peerDependencies": {
-    "next": "^8.0.0"
+    "next": "^9.5.5"
   },
   "dependencies": {
     "@mapbox/s3urls": "^1.5.3",

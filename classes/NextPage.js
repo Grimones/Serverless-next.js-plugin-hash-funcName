@@ -5,11 +5,12 @@ const toPosix = require("../utils/pathToPosix");
 const PluginBuildDir = require("./PluginBuildDir");
 
 class NextPage {
-  constructor(pagePath, { serverlessFunctionOverrides, routes } = {}) {
+  constructor(pagePath, { serverlessFunctionOverrides, routes, individually = false } = {}) {
     this.isApi = pagePath.indexOf(path.join("sls-next-build", "api")) === 0;
     this.pagePath = pagePath;
     this.serverlessFunctionOverrides = serverlessFunctionOverrides;
     this.routes = routes;
+    this.individually = individually;
   }
 
   get pageOriginalPath() {
@@ -95,6 +96,7 @@ class NextPage {
   get serverlessFunction() {
     const configuration = {
       handler: this.pageHandler,
+      description: this.pagePath,
       events: [
         {
           http: {
@@ -104,6 +106,10 @@ class NextPage {
         }
       ]
     };
+
+    if (this.individually) {
+      configuration.package = { include: [this.pagePath, this.pageOriginalPath] }
+    }
 
     if (this.serverlessFunctionOverrides) {
       delete this.serverlessFunctionOverrides.handler;
